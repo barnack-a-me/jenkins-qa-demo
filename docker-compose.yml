@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: tienda-postgres
+    environment:
+      POSTGRES_DB: tienda
+      POSTGRES_USER: qa_user
+      POSTGRES_PASSWORD: qa_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - pgdata:/var/lib/postgresql/data
+
+  jenkins:
+    build:
+      context: ./infra
+      dockerfile: Dockerfile.jenkins
+    container_name: jenkins-qa
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+volumes:
+  pgdata:
+  jenkins_home:
