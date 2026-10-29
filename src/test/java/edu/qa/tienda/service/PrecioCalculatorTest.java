@@ -54,4 +54,20 @@ class PrecioCalculatorTest {
         assertEquals(new BigDecimal("169.50"),
                 PrecioCalculator.precioFinal(new BigDecimal("200.00"), 25));
     }
+
+    // nuevo agrega
+    @Test
+    @DisplayName("totalConIva: 3 unidades de 50.00 con IVA = 169.50")
+    void totalConIva_tresUnidades() {
+        assertEquals(new BigDecimal("169.50"),
+                PrecioCalculator.totalConIva(new BigDecimal("50.00"), 3));
+    }
+
+    @Test
+    @DisplayName("totalConIva rechaza cantidad cero")
+    void totalConIva_rechazaCantidadCero() {
+        assertThrows(IllegalArgumentException.class,
+                () -> PrecioCalculator.totalConIva(new BigDecimal("50.00"), 0));
+    }
+
 }

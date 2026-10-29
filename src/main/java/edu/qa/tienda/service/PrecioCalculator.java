@@ -5,8 +5,10 @@ import java.math.RoundingMode;
 
 /** Reglas de precio: IVA de Bolivia (13 %) y descuentos porcentuales. */
 public final class PrecioCalculator {
-
+    // correcto
     public static final BigDecimal IVA = new BigDecimal("0.13");
+    // modificado
+   // public static final BigDecimal IVA = new BigDecimal("0.15");
 
     private PrecioCalculator() {
     }
@@ -34,4 +36,13 @@ public final class PrecioCalculator {
             throw new IllegalArgumentException("El precio no puede ser nulo ni negativo");
         }
     }
+    // codigo agrego
+    public static BigDecimal totalConIva(BigDecimal precioUnitario, int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor a cero");
+        }
+        validarPrecio(precioUnitario);
+        return conIva(precioUnitario.multiply(BigDecimal.valueOf(cantidad)));
+    }
+
 }
